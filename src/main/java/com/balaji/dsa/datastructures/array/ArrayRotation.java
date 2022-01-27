@@ -1,5 +1,5 @@
 package com.balaji.dsa.datastructures.array;
-public class arrayRotation{
+public class ArrayRotation{
 	public static void main(String[] args) {
 		int[] arr;
 		int size;
