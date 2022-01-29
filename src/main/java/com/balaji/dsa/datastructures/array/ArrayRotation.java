@@ -14,6 +14,7 @@ public class ArrayRotation{
 		printArray(temp.jugglingAlgorithm());
 		printArray(temp.reversalAlgorithm());
 		printArray(temp.blockSwapAlgorithm());
+		printArray(temp.clockwiseRotation());
 	}
 
 
@@ -111,48 +112,33 @@ public class ArrayRotation{
 	}
 
 	public int[] blockSwapAlgorithm(){
+		int A = noOfIndexsToRotate;
+		int B = size - noOfIndexsToRotate;
+		int ll = 0;
+		int ul = size;
+		while (A != B) {
+			int[] temp = swap(arr1, ll, ul, d);
+		}
+
+	}
+
+	public int[] swap(int[] temp, int ll, int ul, int d){
+		continue;
+	}
+
+	public int[] clockwiseRotation(){
 		int[] arr1 = arr;
-		int d = noOfIndexsToRotate;
-		int n = size;
-		int low = 0;
-		int upp = n - 1;
-		while (true) {
-			int[] A = new int[d];
-			int[] B = new int[n - d];
-			for (int i = 0; i < d; i++) {
-				A[i] = arr1[low + i];
+		int temp;
+		for (int i = 0; i < noOfIndexsToRotate; i++) {
+			temp = arr1[size - 1];
+			for (int j = size - 1; j > 0; j--) {
+				arr1[j] = arr1[j - 1];
 			}
-			for (int i = 0; i < n - d; i++) {
-				B[i] = arr1[low + d + i];
-			}
-			if(A.length > B.length){
-				for (int i = 0; i < B.length; i++) {
-					arr1[low + i] = B[i];
-				}
-				for (int i = 0; i < B.length; i++) {
-					arr1[upp - B.length + i] = A[i];
-				}
-				d = d - B.length;
-				low = low + B.length;
-				n = n - B.length;
-			}
-			else if(A.length < B.length){
-				for (int i = 0; i < A.length; i++) {
-					arr1[low + i] = B[i];
-				}
-				for (int i = 0; i < A.length; i++) {
-					arr1[upp - A.length + i] = A[i];
-				}
-				low = low + A.length;
-				n = n - A.length;
-				upp = upp - A.length;
-			}
-			else{
-				break;
-			}
+			arr1[0] = temp;
 		}
 		return arr1;
 	}
+
 
 
 	 /*Function to get gcd of a and b*/
