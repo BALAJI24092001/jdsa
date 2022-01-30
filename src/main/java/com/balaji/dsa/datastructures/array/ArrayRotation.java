@@ -15,6 +15,7 @@ public class ArrayRotation{
 		printArray(temp.reversalAlgorithm());
 		printArray(temp.blockSwapAlgorithm());
 		printArray(temp.clockwiseRotation());
+		printArray(temp.blockSwapAlgorithm());
 	}
 
 
@@ -112,19 +113,41 @@ public class ArrayRotation{
 	}
 
 	public int[] blockSwapAlgorithm(){
-		int A = noOfIndexsToRotate;
-		int B = size - noOfIndexsToRotate;
+		int[] arr1 = arr;
+		int n = size;
+		int d = noOfIndexsToRotate;
 		int ll = 0;
-		int ul = size;
-		while (A != B) {
-			int[] temp = swap(arr1, ll, ul, d);
+		int ul = n - 1;
+		while(true){
+			if(d == n - d){
+				arr1 = swap(arr1, ll, ul, d);
+				break;
+			}
+			else{
+				if(d < n-d){
+					arr1 = swap(arr1, ll, ul, d);
+					ul = ul - d ;
+					n = n - d;
+				}
+				else if(d > n - d){
+					arr1 = swap(arr1, ll, ul, n - d);
+					ll = ll + d;
+					n = d;
+				}
+			}
 		}
-
+		return arr1;
 	}
+
 
 	public int[] swap(int[] temp, int ll, int ul, int d){
-		continue;
-	}
+			for (int i = 0; i < d; i++) {
+				int temp1 = temp[ll + i];
+				temp[ll + i] = temp[ul - d + i + 1 ]; 
+				temp[ul - d + i + 1] = temp1;
+			}
+			return temp;
+		}
 
 	public int[] clockwiseRotation(){
 		int[] arr1 = arr;
