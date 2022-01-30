@@ -6,16 +6,20 @@ public class ArrayRotation{
 	int noOfIndexsToRotate;
 
 	public static void main(String[] args) {
-
 		// testing
-		ArrayRotation temp = new ArrayRotation(new int[]{1, 2, 3, 4, 5, 6, 7, 8}, 8, 2);
+		ArrayRotation temp = new ArrayRotation(new int[]{1, 2, 3, 4, 5, 6, 7}, 7, 0);
+		System.out.print("usingTempArray 	:");
 		printArray(temp.usingTempArray());
+		System.out.print("oneByOne 		:    ");
 		printArray(temp.oneByOne());
+		System.out.print("jugglingAlgorithm 	:    ");
 		printArray(temp.jugglingAlgorithm());
+		System.out.print("reversalAlgorithm 	:    ");
 		printArray(temp.reversalAlgorithm());
+		System.out.print("blockSwapAlgorithm 	:    ");
 		printArray(temp.blockSwapAlgorithm());
+		System.out.print("clockwiseRotation 	:    ");
 		printArray(temp.clockwiseRotation());
-		printArray(temp.blockSwapAlgorithm());
 	}
 
 
@@ -119,7 +123,10 @@ public class ArrayRotation{
 		int ll = 0;
 		int ul = n - 1;
 		while(true){
-			if(d == n - d){
+			if(d == n || d == 0){
+				return arr1;
+			}
+			if(d == n - d ){
 				arr1 = swap(arr1, ll, ul, d);
 				break;
 			}
@@ -131,8 +138,10 @@ public class ArrayRotation{
 				}
 				else if(d > n - d){
 					arr1 = swap(arr1, ll, ul, n - d);
-					ll = ll + d;
+					int temp = n;
 					n = d;
+					d = temp - d;
+					ll = ll + d;
 				}
 			}
 		}
@@ -141,12 +150,14 @@ public class ArrayRotation{
 
 
 	public int[] swap(int[] temp, int ll, int ul, int d){
+
 			for (int i = 0; i < d; i++) {
 				int temp1 = temp[ll + i];
 				temp[ll + i] = temp[ul - d + i + 1 ]; 
 				temp[ul - d + i + 1] = temp1;
 			}
 			return temp;
+
 		}
 
 	public int[] clockwiseRotation(){
@@ -173,6 +184,6 @@ public class ArrayRotation{
     	}
 	public static void printArray(int[] arrTemp){ // printing array for testing
 		System.out.println(Arrays.toString(arrTemp));
-		System.out.println("--------------------------");
+		System.out.println("-----------------------------------------------");
 	}
 }
