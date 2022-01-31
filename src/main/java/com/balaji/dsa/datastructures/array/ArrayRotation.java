@@ -1,13 +1,16 @@
 package com.balaji.dsa.datastructures.array;
+
 import java.util.Arrays;
-public class ArrayRotation{
+
+public class ArrayRotation {
 	int[] arr;
 	int size;
 	int noOfIndexsToRotate;
 
 	public static void main(String[] args) {
+
 		// testing
-		ArrayRotation temp = new ArrayRotation(new int[]{1, 2, 3, 4, 5, 6, 7}, 7, 0);
+		ArrayRotation temp = new ArrayRotation(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 7, 3);
 		System.out.print("usingTempArray 	:");
 		printArray(temp.usingTempArray());
 		System.out.print("oneByOne 		:    ");
@@ -16,23 +19,25 @@ public class ArrayRotation{
 		printArray(temp.jugglingAlgorithm());
 		System.out.print("reversalAlgorithm 	:    ");
 		printArray(temp.reversalAlgorithm());
-		System.out.print("blockSwapAlgorithm 	:    ");
-		printArray(temp.blockSwapAlgorithm());
+
+//		System.out.print("blockSwapAlgorithm 	:    ");
+//		printArray(temp.blockSwapAlgorithm());
+
 		System.out.print("clockwiseRotation 	:    ");
 		printArray(temp.clockwiseRotation());
+
 	}
 
-
-	public ArrayRotation(int[] arr, int size, int noOfIndexsToRotate){
+	public ArrayRotation(int[] arr, int size, int noOfIndexsToRotate) {
 		this.arr = arr;
 		this.size = size;
 		this.noOfIndexsToRotate = noOfIndexsToRotate;
-		this.noOfIndexsToRotate = this.noOfIndexsToRotate % this.size; // incase noOfIndexsToRotate is greater than size of array.
+		this.noOfIndexsToRotate = this.noOfIndexsToRotate % this.size; // incase noOfIndexsToRotate is greater than size
+																		// of array.
 
 	}
 
-
-	public int[] usingTempArray(){
+	public int[] usingTempArray() {
 		int[] temp;
 		int[] arr1 = arr;
 		temp = new int[noOfIndexsToRotate];
@@ -42,11 +47,11 @@ public class ArrayRotation{
 			// stored all the values to be rotated
 		}
 		for (int i = 0; i < (size - noOfIndexsToRotate); i++) {
-			arr1[i] = arr[i+noOfIndexsToRotate];
+			arr1[i] = arr[i + noOfIndexsToRotate];
 			// updating copied values with next values
 		}
-		for (int i = 0; i < noOfIndexsToRotate ; i++) {
-			arr1[size-noOfIndexsToRotate+i] = temp[i];
+		for (int i = 0; i < noOfIndexsToRotate; i++) {
+			arr1[size - noOfIndexsToRotate + i] = temp[i];
 			// updating the end values with the copied values
 		}
 		return arr1;
@@ -54,37 +59,36 @@ public class ArrayRotation{
 		// Auxilary space: O(d)
 	}
 
-
-	public int[] oneByOne(){
+	public int[] oneByOne() {
 		int[] arr1 = arr;
 		for (int i = 0; i < noOfIndexsToRotate; i++) {
 			int temp = arr1[0];
 			for (int j = 0; j < size - 1; j++) {
-				arr1[j] = arr1[j+1];
+				arr1[j] = arr1[j + 1];
 			}
-			arr1[size-1] = temp;
+			arr1[size - 1] = temp;
 		}
 		return arr1;
 		// time complexity: O(d*n)
 		// Auxilary space: O(1)
 	}
-	
 
-	public int[] jugglingAlgorithm(){
+	public int[] jugglingAlgorithm() {
 		int gcd = gcd(size, noOfIndexsToRotate);
 		int[] arr1 = arr;
 		for (int i = 0; i < gcd; i++) {
 			int j = i; // create instance of i into j, to not mess with the looping variable value
 			int temp = arr1[i]; // store the first loop start value
-			while(true){
+			while (true) {
 				int k = j + noOfIndexsToRotate; // create variable to find next location with + noOfIndexsToRotate size
-				if(k >= size){ // if k is out of bound, we have to reduce the value of k to its n modulus
+				if (k >= size) { // if k is out of bound, we have to reduce the value of k to its n modulus
 					k = k % size;
 				}
-				if(k == i){ // if k is same as i, we have to break, since the loop will be starting from the beginning.
+				if (k == i) { // if k is same as i, we have to break, since the loop will be starting from the
+								// beginning.
 					break;
 				}
-				arr1[ j ] = arr1[ k ];
+				arr1[j] = arr1[k];
 				j = k;
 			}
 			arr1[j] = temp;
@@ -92,7 +96,7 @@ public class ArrayRotation{
 		return arr1;
 	}
 
-	public int[] reversalAlgorithm(){
+	public int[] reversalAlgorithm() {
 		int[] arr1 = arr;
 		int[] firstArraySet = new int[noOfIndexsToRotate];
 		int[] secondArraySet = new int[size - noOfIndexsToRotate];
@@ -106,9 +110,9 @@ public class ArrayRotation{
 			arr[i] = firstArraySet[noOfIndexsToRotate - 1 - i];
 		}
 		for (int i = 0; i < size - noOfIndexsToRotate; i++) {
-			arr[noOfIndexsToRotate + i] = secondArraySet[size - noOfIndexsToRotate - 1 - i ];
+			arr[noOfIndexsToRotate + i] = secondArraySet[size - noOfIndexsToRotate - 1 - i];
 		}
-		for (int i = 0; i < (int)(size/2); i++) {
+		for (int i = 0; i < (int) (size / 2); i++) {
 			int temp = arr[i];
 			arr1[i] = arr1[size - 1 - i];
 			arr1[size - 1 - i] = temp;
@@ -116,51 +120,54 @@ public class ArrayRotation{
 		return arr1;
 	}
 
-	public int[] blockSwapAlgorithm(){
-		int[] arr1 = arr;
-		int n = size;
-		int d = noOfIndexsToRotate;
-		int ll = 0;
-		int ul = n - 1;
-		while(true){
-			if(d == n || d == 0){
-				return arr1;
-			}
-			if(d == n - d ){
-				arr1 = swap(arr1, ll, ul, d);
-				break;
-			}
-			else{
-				if(d < n-d){
-					arr1 = swap(arr1, ll, ul, d);
-					ul = ul - d ;
-					n = n - d;
-				}
-				else if(d > n - d){
-					arr1 = swap(arr1, ll, ul, n - d);
-					int temp = n;
-					n = d;
-					d = temp - d;
-					ll = ll + d;
-				}
-			}
-		}
-		return arr1;
-	}
+//		Block Swap algorithm pending
 
+//	public int[] blockSwapAlgorithm() {
+//		int[] arr1 = arr;
+//		int n = size;
+//		int d = noOfIndexsToRotate;
+//		int ll = 0;
+//		int ul = n - 1;
+//		while (true) {
+//			if (d == n || d == 0) {
+//				return arr1;
+//			}
+//			if (d == n - d) {
+//				arr1 = swap(arr1, ll, ul, d);
+//				break;
+//			} else {
+//				if (d < n - d) {
+//					arr1 = swap(arr1, ll, ul, d);
+//					ul = ul - d;
+//					pre_n = n;
+//					n = n - d;
+//				} else if (d > n - d) {
+//					arr1 = swap(arr1, ll, ul, n - d);
+//					pre_n = n;
+//					n = d;
+//					pre_d = d;
+//					d = pre_n - d;
+//					ll = ll + d;
+//				}
+//			}
+//		}
+//		return arr1;
+//	}
 
-	public int[] swap(int[] temp, int ll, int ul, int d){
+//	public int[] swap(int[] temp, int ll, int ul, int d) {
+//		for (int i = 0; i < d; i++) {
+//			int temp1 = temp[ll + i];
+//			temp[ll + i] = temp[ul - d + i + 1];
+//			temp[ul - d + i + 1] = temp1;
+//		}
+//		return temp;
+//	}
 
-			for (int i = 0; i < d; i++) {
-				int temp1 = temp[ll + i];
-				temp[ll + i] = temp[ul - d + i + 1 ]; 
-				temp[ul - d + i + 1] = temp1;
-			}
-			return temp;
+//  		Block swap algorithm pending
+//
+////  		Block swap algorithm pending
 
-		}
-
-	public int[] clockwiseRotation(){
+	public int[] clockwiseRotation() {
 		int[] arr1 = arr;
 		int temp;
 		for (int i = 0; i < noOfIndexsToRotate; i++) {
@@ -173,16 +180,15 @@ public class ArrayRotation{
 		return arr1;
 	}
 
+	/* Function to get gcd of a and b */
+	public int gcd(int a, int b) {
+		if (b == 0)
+			return a;
+		else
+			return gcd(b, a % b);
+	}
 
-
-	 /*Function to get gcd of a and b*/
-    	public int gcd(int a, int b){
-        	if (b == 0)
-            		return a;
-        	else
-        	    	return gcd(b, a % b);
-    	}
-	public static void printArray(int[] arrTemp){ // printing array for testing
+	public static void printArray(int[] arrTemp) { // printing array for testing
 		System.out.println(Arrays.toString(arrTemp));
 		System.out.println("-----------------------------------------------");
 	}
