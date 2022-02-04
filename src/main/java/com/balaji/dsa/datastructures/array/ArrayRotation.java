@@ -1,8 +1,7 @@
 package com.balaji.dsa.datastructures.array;
-
 import java.util.Arrays;
 
-public class ArrayRotation {
+public class ArrayRotation{
 	int[] arr;
 	int size;
 	int noOfIndexsToRotate;
@@ -11,7 +10,7 @@ public class ArrayRotation {
 
 		// testing
 		ArrayRotation temp = new ArrayRotation(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 7, 3);
-		System.out.print("usingTempArray 	:");
+		System.out.print("usingTempArray        	:    ");
 		printArray(temp.usingTempArray());
 		System.out.print("oneByOne 		:    ");
 		printArray(temp.oneByOne());
@@ -25,15 +24,14 @@ public class ArrayRotation {
 
 		System.out.print("clockwiseRotation 	:    ");
 		printArray(temp.clockwiseRotation());
-
+			
 	}
 
 	public ArrayRotation(int[] arr, int size, int noOfIndexsToRotate) {
 		this.arr = arr;
 		this.size = size;
 		this.noOfIndexsToRotate = noOfIndexsToRotate;
-		this.noOfIndexsToRotate = this.noOfIndexsToRotate % this.size; // incase noOfIndexsToRotate is greater than size
-																		// of array.
+		this.noOfIndexsToRotate = this.noOfIndexsToRotate % this.size; // incase noOfIndexsToRotate is greater than size of array
 
 	}
 
@@ -190,6 +188,6 @@ public class ArrayRotation {
 
 	public static void printArray(int[] arrTemp) { // printing array for testing
 		System.out.println(Arrays.toString(arrTemp));
-		System.out.println("-----------------------------------------------");
+		System.out.println("--------------------------------------------------");
 	}
 }
